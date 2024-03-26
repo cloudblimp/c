@@ -1,0 +1,819 @@
+A.1)
+In C#, `ref` and `out` parameters are used to pass arguments to methods by reference, rather than by value. This allows methods to modify the values of the arguments passed to them. However, there are some differences between `ref` and `out` parameters:
+
+1. ref Parameters:
+   - `ref` parameters are used when you want to pass a reference to an existing variable to a method.
+   - The variable passed as a `ref` parameter must be initialized before passing it to the method.
+   - The method can read and modify the value of the variable passed as a `ref` parameter.
+   - It is not necessary for the method to assign a value to the `ref` parameter before using it.
+
+2. out Parameters:
+   - `out` parameters are similar to `ref` parameters but are typically used when the method needs to return multiple values.
+   - The variable passed as an `out` parameter does not need to be initialized before passing it to the method.
+   - The method must assign a value to the `out` parameter before it returns.
+   - The method cannot read the value of the `out` parameter before assigning it a value.
+
+Here's how you can use `ref` and `out` parameters in C#:
+
+using System;
+
+public class Program
+{
+    // Example of a method using ref parameters
+    public static void ModifyWithRef(ref int x)
+    {
+        // Modify the value of the variable passed as a ref parameter
+        x += 10;
+    }
+
+    // Example of a method using out parameters
+    public static void GetValues(out int a, out int b)
+    {
+        // Assign values to the out parameters before returning
+        a = 10;
+        b = 20;
+    }
+
+    public static void Main(string[] args)
+    {
+        int num1 = 5;
+        int num2;
+
+        // Using ref parameter
+        ModifyWithRef(ref num1);
+        Console.WriteLine("Value after modifying with ref parameter: " + num1); // Output: 15
+
+        // Using out parameters
+        GetValues(out num1, out num2);
+        Console.WriteLine("Value of num1: " + num1); // Output: 10
+        Console.WriteLine("Value of num2: " + num2); // Output: 20
+    }
+}
+
+In this example:
+- `ModifyWithRef` method takes a `ref` parameter `x` and modifies its value.
+- `GetValues` method takes two `out` parameters `a` and `b`, assigns values to them, and returns.
+- In the `Main` method, we initialize variables `num1` and `num2`.
+- We call `ModifyWithRef` method with `num1` passed as a `ref` parameter, which modifies its value.
+- We call `GetValues` method with `num1` and `num2` passed as `out` parameters, which assigns values to them.
+A.2)
+In C#, methods are an essential part of organizing and structuring code. They encapsulate a set of statements into a single unit that can be called and executed as needed. The main components of methods in C# include:
+
+1. Method Signature:
+   - The method signature includes the method's name and the parameter list.
+   - It defines the method's interface, specifying what information the method needs to execute and what it returns.
+   - The method signature does not include the method's body.
+
+2. Return Type:
+   - The return type specifies the type of data that the method will return after execution.
+   - If the method doesn't return any value, its return type is `void`.
+   - If the method returns a value, its return type is specified accordingly (e.g., `int`, `string`, `double`, custom class, etc.).
+
+3. Access Modifiers:
+   - Access modifiers define the visibility and accessibility of the method.
+   - They specify where the method can be accessed from (e.g., within the same class, from derived classes, or from any part of the program).
+   - Common access modifiers include `public`, `private`, `protected`, `internal`, and `protected internal`.
+
+4. Parameters:
+   - Parameters are variables that are used to pass data into a method.
+   - They are listed within parentheses in the method signature.
+   - Parameters are optional, and a method may have zero or more parameters.
+   - Each parameter consists of a data type followed by a parameter name.
+   - Parameters allow methods to receive input and perform actions based on that input.
+
+5. Method Body:
+   - The method body contains the actual implementation of the method.
+   - It consists of a block of statements enclosed within curly braces `{}`.
+   - These statements define what the method does when it is called, including any calculations, conditional logic, or other operations.
+   - The method body can access parameters and local variables declared within the method.
+
+Here's a simple example illustrating these components:
+
+public class Calculator
+{
+    // Method signature: Add method with return type int, public access modifier,
+    // and two parameters (int x and int y).
+    public int Add(int x, int y)
+    {
+        // Method body: Return the sum of x and y.
+        return x + y;
+    }
+}
+
+In this example:
+- `Add` is the method name.
+- `int` is the return type.
+- `public` is the access modifier.
+- `(int x, int y)` is the parameter list.
+- `x` and `y` are the parameters.
+- The method body calculates the sum of `x` and `y` and returns the result.
+A.3)
+An enumeration, often referred to as an enum, is a distinct data type in many programming languages, including C#. It is used to define a set of named integral constants, each of which represents a unique value within the enumeration. Enumerations provide a way to define symbolic names for a group of related constants, making the code more readable, understandable, and maintainable.
+
+In C#, an enumeration is declared using the enum keyword, followed by the name of the enumeration and a list of comma-separated constant values enclosed in curly braces {}.
+A.4)
+Here's a C# code example that demonstrates the use of enumerations and displays their contents:
+
+using System;
+// Define an enumeration called DaysOfWeek
+public enum DaysOfWeek
+{
+    Sunday,
+    Monday,
+    Tuesday,
+    Wednesday,
+    Thursday,
+    Friday,
+    Saturday
+}
+
+class Program
+{
+    static void Main()
+    {
+        // Display all the values of the DaysOfWeek enumeration
+        Console.WriteLine("Days of the week:");
+
+        // Loop through each value of the DaysOfWeek enumeration
+        foreach (DaysOfWeek day in Enum.GetValues(typeof(DaysOfWeek)))
+        {
+            // Convert the enum value to string and display it
+            Console.WriteLine(day);
+        }
+    }
+}
+
+Output:
+Days of the week:
+Sunday
+Monday
+Tuesday
+Wednesday
+Thursday
+Friday
+Saturday
+
+In this code:
+
+- We define an enumeration called `DaysOfWeek` that represents the days of the week.
+- Inside the `Main` method, we use a `foreach` loop to iterate over each value of the `DaysOfWeek` enumeration.
+- We use `Enum.GetValues(typeof(DaysOfWeek))` to retrieve an array of all the values of the `DaysOfWeek` enumeration.
+- Within the loop, we convert each enum value to a string and display it using `Console.WriteLine`.
+A.5)
+C# provides checked and unchecked keyword to handle integral type exceptions. Checked and unchecked keywords specify checked context and unchecked context respectively. In checked context, arithmetic overflow raises an exception whereas, in an unchecked context, arithmetic overflow is ignored and result is truncated.
+C# Checked Example using checked
+This program throws an exception and stops program execution.
+using System;  
+namespace CSharpProgram  
+{  
+    class Program  
+    {  
+        static void Main(string[] args)   
+        {  
+            checked  
+            {  
+                int val = int.MaxValue;  
+                Console.WriteLine(val + 2);  
+            }  
+        }  
+    }  
+}  
+
+
+C# Unchecked
+The Unchecked keyword ignores the integral type arithmetic exceptions. It does not check explicitly and produce result that may be truncated or wrong.
+
+using System;  
+namespace CSharpProgram  
+{  
+    class Program  
+    {  
+        static void Main(string[] args)   
+        {  
+            unchecked  
+            {  
+                int val = int.MaxValue;  
+                Console.WriteLine(val + 2);  
+            }  
+        }  
+    }  
+}  
+
+
+A.6)
+Typecasting in C# refers to the process of converting a value from one data type to another. This is often necessary when you want to perform operations or assignments involving different data types. There are two types of typecasting in C#: implicit typecasting and explicit typecasting.
+
+1. Implicit Typecasting: This type of typecasting occurs when the conversion is done automatically by the compiler because the destination data type can hold all possible values of the source data type without losing any information.
+
+2. Explicit Typecasting: This type of typecasting requires manual intervention by the programmer and is used when the destination data type may lose information while converting from the source data type.
+
+Here's a simple example demonstrating both types of typecasting in C#:
+
+using System;
+class Program
+{
+    static void Main()
+    {
+        // Implicit typecasting
+        int numInt = 100;
+        double numDouble = numInt; // Implicitly converts int to double
+        Console.WriteLine("Implicit typecasting:");
+        Console.WriteLine("Integer: " + numInt);
+        Console.WriteLine("Double: " + numDouble);
+        Console.WriteLine();
+
+        // Explicit typecasting
+        double pi = 3.14159;
+        int truncatedPi = (int)pi; // Explicitly converts double to int
+        Console.WriteLine("Explicit typecasting:");
+        Console.WriteLine("Double (pi): " + pi);
+        Console.WriteLine("Truncated Integer: " + truncatedPi);
+        Console.WriteLine();
+
+        // Explicit typecasting with potential data loss
+        int largeNum = 1000;
+        byte smallNum = (byte)largeNum; // Explicitly converts int to byte (may lose data)
+        Console.WriteLine("Explicit typecasting with potential data loss:");
+        Console.WriteLine("Integer (largeNum): " + largeNum);
+        Console.WriteLine("Byte (smallNum): " + smallNum);
+    }
+}
+
+Output:
+Implicit typecasting:
+Integer: 100
+Double: 100
+
+Explicit typecasting:
+Double (pi): 3.14159
+Truncated Integer: 3
+
+Explicit typecasting with potential data loss:
+Integer (largeNum): 1000
+Byte (smallNum): 232
+
+In this example:
+- Implicit typecasting is demonstrated when converting from an integer (`int`) to a double (`double`).
+- Explicit typecasting is shown when converting from a double to an integer, where some precision is lost.
+- Another explicit typecasting example demonstrates converting from an integer to a byte, which may result in data loss because a byte can only hold values from 0 to 255.
+A.7)
+In C#, a class, object, and component are fundamental concepts used in object-oriented programming (OOP). Here's an explanation of each:
+
+1. Class:
+   - A class is a blueprint or template for creating objects. It defines the properties, methods, events, and other members that are common to all objects of that type.
+   - Classes are the building blocks of object-oriented programming in C#. They encapsulate data for the object and define the behavior of the object through methods.
+   - For example, if you're building a program to model cars, you might have a `Car` class that defines properties like `make`, `model`, and `year`, as well as methods like `Start()` and `Stop()`.
+
+2. Object:
+   - An object is an instance of a class. It's a concrete entity created based on the blueprint defined by the class.
+   - When you create an object, memory is allocated for the object, and it has its own set of properties and methods as defined by the class.
+   - Using the previous example, if you create an object of the `Car` class, you might create a specific car instance, such as a `Toyota Camry` with the year `2020`.
+
+3. Component:
+   - In the context of C#, a component typically refers to a reusable piece of code that encapsulates certain functionality.
+   - Components can be classes, controls, or other elements that can be used within a C# application or framework.
+   - Components are often used to modularize code, promote reusability, and improve maintainability.
+   - In graphical user interface (GUI) development, components may refer to visual elements like buttons, text boxes, or custom controls that provide specific functionality.
+   - C# frameworks like .NET also provide components such as Windows Forms controls or ASP.NET server controls that developers can use to build applications more efficiently.
+A.8)
+Encapsulation:-
+In a different way, encapsulation is aEncapsulation is defined as the wrapping up of data and information under a single unit. 
+It is the mechanism that binds together the data and the functions that manipulate them. 
+ protective shield that prevents the data from being accessed by the code outside this shield.
+Interfaces:-
+An interface is a completely "abstract class" which can only contain abstract methods and properties (with empty bodies).
+Polymorphism:-
+ means "many forms", and it occurs when we have many classes that are related to each other by inheritance.
+Abstract class:- is a restricted class that cannot be used to create objects (to access it, it must be inherited from another class).
+Inheritance:- is a fundamental concept in object-oriented programming that allows us to define a new class based on an existing class. 
+A.9)
+An exception is defined as an event that occurs during the execution of a program that is unexpected by the program code. 
+The actions to be performed in case of occurrence of an exception is not known to the program. In such a case, we create an exception object and call the exception handler code. 
+The execution of an exception handler so that the program code does not crash is called exception handling. Exception handling is important because it gracefully handles an unwanted event, an exception so that the program code still makes sense to the user.
+A.10)
+DivideByZeroException- This exception means an attempt was made to divide by zero.
+NullReferenceException- This exception means attempt to use an unassigned reference.
+System.InvalidCastException- Handles errors generated during typecasting.
+System.IO.IOException- Handles I/O errors.
+System.FieldAccessException-Access to a class field is unauthorized or blocked.
+A.11)
+C# exception handling is built upon four keywords: try, catch, finally, and throw.
+ ⦁try − A try block identifies a block of code for which particular exceptions is activated. It is followed by one or more catch blocks.
+ ⦁catch − A program catches an exception with an exception handler at the place in a program where you want to handle the problem. The catch keyword indicates the catching  of an exception.
+ ⦁finally − The finally block is used to execute a given set of statements, whether an exception is thrown or not thrown. 
+  For example, if you open a file, it must be closed whether an exception is raised or not.
+ ⦁throw − A program throws an exception when a problem shows up. This is done using a throw keyword.
+Syntax:-
+try {
+   // statements causing exception
+} catch( ExceptionName e1 ) {
+   // error handling code
+} catch( ExceptionName e2 ) {
+   // error handling code
+} catch( ExceptionName eN ) {
+   // error handling code
+} finally {
+   // statements to be executed
+}
+A.12)
+Stream: System.IO.Stream is an abstract class that provides standard methods to transfer bytes (read, write, etc.) to the source. 
+It is like a wrapper class to transfer bytes. 
+Classes that need to read/write bytes from a particular source must implement the Stream class.
+A.13)
+The following classes inherit Stream class to provide the functionality to Read/Write bytes from a particular source:
+FileStream: FileStream reads or writes bytes from/to a physical file, whether it is a .txt, .exe, .jpg, or any other file. FileStream is derived from the Stream class.
+MemoryStream: MemoryStream reads or writes bytes that are stored in memory.
+BufferedStream: BufferedStream reads or writes bytes from other Streams to improve certain I/O operations' performance.
+NetworkStream: NetworkStream reads or writes bytes from a network socket.
+PipeStream: PipeStream reads or writes bytes from different processes.
+CryptoStream: CryptoStream is for linking data streams to cryptographic transformations.
+A.14)
+An event is a notification sent by an object to signal the occurrence of an action. Events in .NET follow the observer design pattern.
+The class who raises events is called Publisher, and the class who receives the notification is called Subscriber.
+In C#, an event is an encapsulated delegate. It is dependent on the delegate. The delegate defines the signature for the event handler method of the subscriber class.
+//code for illustration of events and delegates
+using System;					
+public class Program
+{
+	public static void Main()
+    {
+        ProcessBusinessLogic bl = new ProcessBusinessLogic();
+        bl.ProcessCompleted += bl_ProcessCompleted; // register with an event
+        bl.StartProcess();
+    }
+
+    // event handler
+    public static void bl_ProcessCompleted()
+    {
+        Console.WriteLine("Process Completed!");
+    }
+}
+public delegate void Notify(); 
+public class ProcessBusinessLogic
+{
+    public event Notify ProcessCompleted; // event
+
+    public void StartProcess()
+    {
+        Console.WriteLine("Process Started!");
+        // some code here..
+        OnProcessCompleted();
+    }
+
+
+    protected virtual void OnProcessCompleted()
+    {
+        ProcessCompleted?.Invoke();
+    }
+}
+
+OUTPUT
+Process Started! Process Completed!
+
+
+A.15)
+//C#: Exception Handling: Handling all exceptions
+using System;
+class MyClient
+{
+    public static void Main()
+    {
+        int x = 0;
+        int div = 0;
+        try
+        {
+            div = 100 / x;
+            Console.WriteLine("Not executed line");
+        }
+        catch
+        {
+            Console.WriteLine("oException");
+        }
+        Console.WriteLine($"Result is {div}");
+    }
+}
+
+A.16)
+Few basic controls used for creation of Windows Forms:
+Button
+Label
+TextBox
+CheckBoxes & RadioBoxes
+ListBox
+
+A.17)
+Encapsulation is defined as the wrapping up of data and information under a single unit. 
+It is the mechanism that binds together the data and the functions that manipulate them. 
+In a different way, encapsulation is a protective shield that prevents the data from being accessed by the code outside this shield.
+
+/ C# program to illustrate encapsulation
+using System;
+  
+public class DemoEncap {
+  
+    // private variables declared these can only be accessed by
+    // public methods of class
+    private String studentName;
+    private int studentAge;
+  
+    // using accessors to get and set the value of studentName
+    public String Name
+    {
+  
+        get { return studentName; }
+  
+        set { studentName = value; }
+    }
+  
+    // using accessors to get and set the value of studentAge
+    public int Age
+    {
+  
+        get { return studentAge; }
+  
+        set { studentAge = value; }
+    }
+}
+  
+// Driver Class
+class GFG {
+  
+    // Main Method
+    static public void Main()
+    {
+        // creating object
+        DemoEncap obj = new DemoEncap();
+  
+        // calls set accessor of the property Name,and pass "Ankita" as value of the standard field 'value'
+        obj.Name = "Ankita”;
+  
+  
+        // calls set accessor of the property Age, and pass "21" as value of the standard field 'value'
+        obj.Age = 21;
+  
+        // Displaying values of the variables
+        Console.WriteLine(" Name : " + obj.Name);
+        Console.WriteLine(" Age : " + obj.Age);
+    }
+}
+
+Output:
+Name: Ankita Age: 21
+
+A.18)
+public class BankAccount {
+   
+private decimal balance;
+  
+    public BankAccount(decimal initialBalance)
+    {
+        balance = initialBalance;
+    }
+  
+    public void Deposit(decimal amount)
+    {
+        balance += amount;
+    }
+  
+    public void Withdraw(decimal amount)
+    {
+        if (balance >= amount) {
+            balance -= amount;
+        }
+        else {
+            Console.WriteLine("Insufficient funds.");
+        }
+    }
+  
+    public decimal GetBalance() { return balance; }
+}
+  
+class Program {
+    static void Main(string[] args)
+    {
+        BankAccount myAccount = new BankAccount(1000);
+  
+        myAccount.Deposit(500);
+        Console.WriteLine("Balance: "
+                          + myAccount.GetBalance());
+  
+        myAccount.Withdraw(2200);
+        Console.WriteLine("Balance: "
+                          + myAccount.GetBalance());
+    }
+}
+
+Output:
+Balance: 1500 Insufficient funds. Balance: 1500
+
+
+A.19)
+using System;
+ 
+// single inheritance
+class Animal {
+    public void Eat () {
+        Console.WriteLine("Animal is eating.");
+    }
+}
+ 
+class Dog : Animal {    
+    public void Bark () {
+        Console.WriteLine("Dog is barking.");
+    }
+}
+ 
+
+// hierarchical inheritance …   now more than one class inherits
+class Bird : Animal {
+    public void Fly () {
+        Console.WriteLine("Bird is flying.");
+    }
+}
+
+
+
+// multi-level inheritance …   here derived class mammal become base class
+class Mammal : Animal {
+    public void Run () {
+        Console.WriteLine("Mammal is running.");
+    }
+}
+ 
+class Horse : Mammal {
+    public void Gallop() {
+        Console.WriteLine("Horse is galloping.");
+    }
+}
+ 
+// multi-level inheritance  …   here derived class Bird become base class
+class Eagle : Bird {
+    public void Hunt() {
+        Console.WriteLine("Eagle is hunting.");
+    }
+}
+ 
+class Penguin : Bird {
+    public void Swim() {
+        Console.WriteLine("Penguin is swimming.");
+    }
+}
+ 
+// multiple inheritance  ….  Achieved through interfaces
+interface I1 {
+    void Method1();
+}
+ 
+interface I2 {
+    void Method2();
+}
+ 
+class MyClass : I1, I2 {     // multiple inheritance  .. more than one interface are implemented in a single class
+    public void Method1() {
+        Console.WriteLine("Method1 is called.");
+    }
+ 
+    public void Method2() {
+        Console.WriteLine("Method2 is called.");
+    }
+}
+ 
+// main program
+class Program {
+    static void Main(string[] args) {
+        // single inheritance
+        Dog dog = new Dog();
+        dog.Eat();
+        dog.Bark();
+ 
+        // multi-level inheritance
+        Horse horse = new Horse();
+        horse.Eat();
+        horse.Run();
+        horse.Gallop();
+ 
+        // hierarchical inheritance
+        Eagle eagle = new Eagle();
+        Penguin penguin = new Penguin();
+        eagle.Fly();
+        eagle.Hunt();
+        penguin.Fly();
+        penguin.Swim();
+ 
+        // multiple inheritance
+        MyClass myClass = new MyClass();
+        myClass.Method1();
+        myClass.Method2();
+ 
+        Console.ReadLine();
+    }
+}
+A.20)
+class Animal  // Base class (parent) 
+{
+  public virtual void animalSound() 
+  {
+    Console.WriteLine("The animal makes a sound");
+  }
+}
+class Pig : Animal  // Derived class (child) 
+{
+  public override void animalSound() 
+  {
+    Console.WriteLine("The pig says: wee wee");
+  }
+}
+class Dog : Animal  // Derived class (child) 
+{
+  public override void animalSound() 
+  {
+    Console.WriteLine("The dog says: bow wow");
+  }
+}
+class Program 
+{
+  static void Main(string[] args) 
+  {
+    Animal myAnimal = new Animal();  // Create a Animal object
+    Animal myPig = new Pig();  // Create a Pig object
+    Animal myDog = new Dog();  // Create a Dog object
+    myAnimal.animalSound();
+    myPig.animalSound();
+    myDog.animalSound();
+  }
+}
+The output will be:
+The animal makes a sound The pig says: wee wee The dog says: bow wow
+
+A.21)
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace WindowsForms1
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void ChangeButtonText(object sender, EventArgs e)
+        {
+            btnExampleButon.Text = "Button text Changed";
+        }
+    }
+}
+
+
+
+Run the code:
+
+
+
+Click on example button:
+
+A.22)
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace WindowsForms1
+{
+    public partial class Form2 : Form
+    {
+        public Form2()
+        {
+            InitializeComponent();
+        }
+
+        private void add(object sender, EventArgs e)
+        {
+            int input1 = int.Parse(txtInput1.Text);
+            int input2 = int.Parse(txtInput2.Text);
+            int result = input1 + input2;
+            txtResult.Text = result.ToString();
+//you can show the result in message box
+ MessageBox.Show(txtResult.Text);
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace WindowsForms1
+{
+    internal static class Program
+    {
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main()
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Form2());
+        }
+    }
+}
+
+
+
+A.23)
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace WindowsForms1
+{
+    public partial class Form3 : Form
+    {
+        public Form3()
+        {
+            InitializeComponent();
+        }
+
+        private void btnAddFromCode_Click(object sender, EventArgs e)
+        {
+            //   listBox1.Items.Add("item 1"); // add single item
+            listBox1.Items.Add(textBox1.Text);  // add item using textbox
+
+        }
+
+        private void Form3_Load(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+        //   add array of items
+
+            string[] arr = { "x", "y", "z" };  
+            listBox1.Items.AddRange(arr);
+        }
+    }
+}
+
+
+
+//   add a button to pop a message to show the selected index
+// code
+private void button2_Click(object sender, EventArgs e)
+ {
+     MessageBox.Show(listBox1.SelectedIndex.ToString());
+ }
+
+
+//   add a button to pop a message to show the selected item
+// code
+private void GetSelectedItem(object sender, EventArgs e)
+ {
+     MessageBox.Show(listBox1.SelectedItem.ToString());
+     //listBox1.SelectedItem.ToString();
+ }
+
+
+
+
+A.24) 
+The Common Language Runtime (CLR) uses advanced implementation of Windows Graphics Device Interface (GDI+).
+With GDI+, you can create graphics, draw texts and manipulate images.
+You can use GDI+ to render graphical images on windows forms and control.
+You cannot use GDI+ directly on web forms.
+It is an Application Programming Interface (API).
+This sub-system of Microsoft Windows Operating System.
+The GDI+ API is exposed to set of classes deployed as managed to core, this set of classes is called the managed class.
+Interface to GDI+, the following namespaces make up the managed class interface:
+System.Drawing;
+System.Drawing.Drawing2D;
+System.Drawing.Imaging;
+System.Drawing.Text;
+System.Drawing.Printing;
+A.25)
+ In C#, the `BackgroundWorker` control is used to perform time-consuming operations asynchronously on a separate thread from the main UI thread. This allows the UI to remain responsive while the operation is executing in the background. It simplifies the process of implementing multithreading in applications by providing events for progress updates and completion.
